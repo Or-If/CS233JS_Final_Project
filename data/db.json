@@ -1,0 +1,42 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "name": "Ann",
+      "booksRead": [],
+      "booksReading": [],
+      "booksToRead": []
+    },
+    {
+      "id": 2,
+      "name": "Orianna",
+      "booksRead": [],
+      "booksReading": [],
+      "booksToRead": []
+    },
+    {
+      "name": "may",
+      "booksRead": [],
+      "booksReading": [],
+      "booksToRead": [],
+      "id": 3
+    }
+  ],
+  "Auth": [
+    {
+      "id": 1,
+      "username": "tester",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "ori",
+      "password": "321"
+    },
+    {
+      "username": "may",
+      "password": "4321",
+      "id": 3
+    }
+  ]
+}
