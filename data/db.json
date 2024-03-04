@@ -20,6 +20,13 @@
       "booksReading": [],
       "booksToRead": [],
       "id": 3
+    },
+    {
+      "name": "sol",
+      "booksRead": [],
+      "booksReading": [],
+      "booksToRead": [],
+      "id": 4
     }
   ],
   "Auth": [
@@ -37,6 +44,11 @@
       "username": "may",
       "password": "4321",
       "id": 3
+    },
+    {
+      "username": "sol",
+      "password": "321",
+      "id": 4
     }
   ]
 }
