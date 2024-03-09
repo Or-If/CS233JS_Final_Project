@@ -6,49 +6,75 @@
   <title>Bookshelf</title>
 </head>
 <body>
-  <div class="bookStorage">
-    <div>
-      <form id="accountSearch">
-        <h4>Submit Your Account Info</h4>
-        <label for="username">Username: </label>
-        <input type="text" id="username" name="username"> 
-        <label for="password">Password: </label>
-        <input type="password" id="password" name="password">
-        <input type="submit" value="submit">
-        <button>Create an account instead</button>
-      </form>
-      <form id="accountCreation">
-        <h4>Create An Account</h4>
-        <label for="usernameCreation">Username: </label>
-        <input type="text" id="usernameCreation" name="username"> 
-        <label for="passwordCreation">Password: </label>
-        <input type="password" id="passwordCreation" name="password">
-        <input type="submit" value="submit">
-        <button>Enter your pre-existing account instead</button>
-      </form>
+  <div class="bookStorage container-fluid">
+    <div class="row">
+      <h1>Header</h1>
     </div>
-    <div id="accountInfo">
+    <div class="row">
+      <div id="bookSearchBar" class="col-sm">
+        <form id="bookSearch">
+          <h4>Book Search (Only By Title ATM, works best with books that have unique titles)</h4>
+          <label for="bookTitle">Title: </label>
+          <input type="text" id="bookTitle" name="username" placeholder="Ancillary Justice">
+          <input type="submit" value="submit">
+        </form>
+        <div id="displayBook">
+        </div>
+        <div id="displayButtons" class="d-none">
+          <button id="addBookRead">Add to Finished</button>
+          <button id="addBookReading">Add to Reading</button>
+          <button id="addBookToRead">Add to Want to Read</button>
+        </div>
+      </div> 
+
+      <div id="allAccountInfo" class="col-sm">
+        <div id="accountSearchBars" class="">
+          <form id="accountSearch">
+            <h4>Submit Your Account Info</h4>
+            <div class="form-group">
+              <label for="username">Username: </label>
+              <input type="text" id="username" name="username"> 
+            </div>
+            <div class="form-group">
+              <label for="password">Password: </label>
+              <input type="password" id="password" name="password">
+              <input type="submit" value="submit">
+            </div> 
+          </form>
+          
+
+          <form id="accountCreation" class="d-none">
+            <h4>Create An Account</h4>
+            <label for="usernameCreation">Username: </label>
+            <input type="text" id="usernameCreation" name="username"> 
+            <label for="passwordCreation">Password: </label>
+            <input type="password" id="passwordCreation" name="password">
+            <input type="submit" value="submit">
+          </form>
+          <button class="btn-default btn-sm" id="changeSubmit">Create an account instead</button>
+        </div>
+
+        <div id="accountInfo" class="">
+          <h4 id="accountName"></h4>
+          <div id="booksList01">
+            <!-- for some reason collapse just dont work-->
+            <p>Finished Books<span class="badge">5</span></p>
+            <div id="booksRead">
+            </div>
+          </div>
+          <div id="booksList02">
+            <p>Currently Reading <span class="badge"></span></p>
+            <div id="booksReading" class="bookList"></div>
+          </div>
+          <div id="booksList03">
+            <p>Want To Read <span class="badge"></span></p>
+            <div id="booksToRead" class="bookList"></div>
+          </div>
+        </div>
+      </div>
+
       
     </div>
-    <div id="booksRead">
-
-    </div>
-    <div id="booksReading">
-
-    </div>
-    <div id="booksToRead">
-
-    </div>
-    <div id="bookSearchBar">
-      <form id="bookSearch">
-        <h4>Book Search (Only By Title ATM, works best with books that have unique titles)</h4>
-        <label for="bookTitle">Title: </label>
-        <input type="text" id="bookTitle" name="username" placeholder="Ancillary Justice">
-        <input type="submit" value="submit">
-      </form>
-      <div id="displayBook">
-      </div>
-    </div>  
   </div>
 </body>
 </html>
