@@ -6,39 +6,6 @@ import "toastr/toastr.scss";
 
 class Bookshelf {
   constructor() {
-    //                                                                         delete these and implement into code better
-    this.allData; // I can prob change this one to scoped variable, will mess with later..... possible with other 2 as well
-    this.userID;
-    this.userInfo;
-
-    //                                                                         Add these all to a single function
-    this.accountForm = document.querySelector("#accountSearch");
-    this.accountForm.onsubmit = this.searchAccount.bind(this);
-
-    this.creatNewAccountForm = document.querySelector("#accountCreation");
-    this.creatNewAccountForm.onsubmit = this.addNewUser.bind(this);
-
-    document.querySelector("#addBookRead").onclick = this.addBookToList.bind(
-      this,
-      "booksRead",
-    );
-    document.querySelector("#addBookReading").onclick = this.addBookToList.bind(
-      this,
-      "booksReading",
-    );
-    document.querySelector("#addBookToRead").onclick = this.addBookToList.bind(
-      this,
-      "booksToRead",
-    );
-
-    //this.changeButton = document.querySelector(".changeSubmit") // this wasnt working for some reason
-    this.changeButton = document.querySelector("#changeSubmit");
-    this.changeButton.onclick = this.changeFormButton.bind(this);
-
-    // I might use a few more document slectors to add events onto page, but not sure atm
-    this.UIBookSearch = document.querySelector("#bookSearch");
-    this.UIBookSearch.onsubmit = this.searchBook.bind(this);
-
     this.bookOnDisplay = {
       title: "Anciallary Justice",
       author: "Ann Leckie",
@@ -52,116 +19,156 @@ class Bookshelf {
       booksReading: [],
       booksToRead: [],
     };
+
+    // When this one was added to the function that establishes all other event handlers it broke the system
+    document.querySelector("#bookSearch").onsubmit = this.searchBook.bind(this);
+    this.addEventHandlers();
   }
 
-  //                                               I might put this chunk of code into a seperate js file to make tidy
+  addEventHandlers() {
+    document.querySelector("#addBookRead").onclick = this.addBookToList.bind(this, "booksRead");
+    document.querySelector("#addBookReading").onclick = this.addBookToList.bind(this, "booksReading");
+    document.querySelector("#addBookToRead").onclick = this.addBookToList.bind(this, "booksToRead");
+    document.querySelector("#changeSubmit").onclick = this.changeFormButton.bind(this);
+    document.querySelector("#accountCreation").onsubmit = this.addNewUser.bind(this);
+    document.querySelector("#accountSearch").onsubmit = this.searchAccount.bind(this);
+  }
+
+
+
+
+  //                                                                      //
   searchAccount(event) {
     event.preventDefault();
-    console.log(username.value);
-    console.log(password.value);
     // fires the async function with the forms username and password values
     this.checkAuthentication(username.value, password.value);
-    this.loadData();
   }
 
   async checkAuthentication(enteredUsername, enteredPassword) {
-    const request = await fetch(USER_AUTH);
-    const data = await request.json();
-    let isUserName = false;
-    this.userID = -1;
-
-    // I tried to move to its own function but broke program in wierd way, look into later
-    await data.forEach((dataIterable, i) => {
-      if (dataIterable.username === enteredUsername) {
-        isUserName = true;
-        if (dataIterable.password === enteredPassword) {
-          this.userID = i + 1;
-        } else {
-          console.log("wrong password");
+    try {
+      const request = await fetch(USER_AUTH);
+      const data = await request.json();
+      let isUserName = false;
+      let userID = -1;
+      // I tried to move to its own function but broke program in wierd way, look into later
+      await data.forEach((dataIterable, i) => {
+        if (dataIterable.username === enteredUsername) {
+          isUserName = true;
+          if (dataIterable.password === enteredPassword) {
+            userID = i + 1;
+          } else {
+            console.log("wrong password");
+          }
         }
+      });
+      // same as comment above
+      if (userID != -1) {
+        console.log("Welcome " + enteredUsername);
+        // if the username and password are correct than this will load the users data onto the page
+        this.loadData(userID);
+      } else if (isUserName) {
+        alert("Your password didn't match");
+      } else {
+        alert("Your username doesn't exsist");
       }
-    });
-    // same as comment above
-    if (this.userID != -1) {
-      console.log("Welcome " + enteredUsername);
-    } else if (isUserName) {
-      alert("Your password didn't match");
-    } else {
-      alert("Your username doesn't exsist");
     }
+    catch (error) {
+      console.log(error)
+    } 
   }
 
-  async loadData() {
+  async loadData(userID) {
     const request = await fetch(USER_INFO);
-    this.allData = await request.json();
-    this.findExactUser();
-    this.setAccountToPage();
+    const allUserData = await request.json();
+    const userInfo = this.findExactUser(allUserData, userID);
+    this.setAccountToPage(userInfo);
   }
 
-  findExactUser() {
-    this.allData.forEach((dataIterable, i) => {
-      console.log(dataIterable.id, this.userID);
-      if (dataIterable.id === this.userID) {
-        this.userInfo = dataIterable;
+  findExactUser(allUserData, userID) { 
+    let userInfo;
+    allUserData.forEach((dataIterable) => {
+      console.log(dataIterable.id, userID);
+      if (dataIterable.id === userID) {
+        userInfo = dataIterable;
       }
     });
+    return userInfo;
   }
 
-  setAccountToPage() {
+  setAccountToPage(userInfo) {
     document.querySelector("#accountName").innerHTML =
-      `${this.userInfo.name}'s <b>BookShelf</b>`;
-    this.currentUser.id = this.userInfo.id;
-    this.currentUser.name = this.userInfo.name;
-    this.currentUser.booksRead = this.userInfo.booksRead;
-    this.currentUser.booksReading = this.userInfo.booksReading;
-    this.currentUser.booksToRead = this.userInfo.booksToRead;
+      `${userInfo.name}'s <b>BookShelf</b>`;
+    this.currentUser.id = userInfo.id;
+    this.currentUser.name = userInfo.name;
+    this.currentUser.booksRead = userInfo.booksRead;
+    this.currentUser.booksReading = userInfo.booksReading;
+    this.currentUser.booksToRead = userInfo.booksToRead;
     this.updatePageLists("booksToRead");
     this.updatePageLists("booksRead");
     this.updatePageLists("booksReading");
   }
-  //                                                                           This would encompass all script related to finding user
 
-  async addNewUser(event) {
+
+
+  //                                                            //
+
+  async addNewUser(event) { // can maybe take off async
     event.preventDefault();
-    this.addUserToAuthentication(
-      usernameCreation.value,
-      passwordCreation.value,
-    );
+    this.addUserToAuthentication(usernameCreation.value, passwordCreation.value);
     this.addUserToUsersDB(usernameCreation.value);
+    
+    // added these so the user won't have to type in info twice
+    this.checkAuthentication(usernameCreation.value, passwordCreation.value);
+    this.changeFormButton();
   }
 
   async addUserToAuthentication(username, password) {
-    const newUserInfo = new this.userAuthenticationInfo(username, password);
-    const requestOptions = {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUserInfo),
-    };
-    const response = await fetch(USER_AUTH, requestOptions);
-  }
-
-  async addUserToUsersDB(username) {
-    const newUserInfo = new this.userAccount(username);
-    const requestOptions = {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUserInfo),
-    };
-    const response = await fetch(USER_INFO, requestOptions);
+    try {
+      const newUserInfo = new this.userAuthenticationInfo(username, password);
+      const requestOptions = {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUserInfo),
+      };
+      const response = await fetch(USER_AUTH, requestOptions);
+    }
+    catch (error) {
+      console.log(error)
+      alert("Sorry we had trouble adding your account to our Database")
+    }
   }
 
   userAuthenticationInfo(username, password) {
-    (this.username = username), (this.password = password);
+    (this.username = username);
+    (this.password = password);
+  }
+
+  async addUserToUsersDB(username) {
+    try {
+      const newUserInfo = new this.userAccount(username);
+      const requestOptions = {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUserInfo),
+      };
+      const response = await fetch(USER_INFO, requestOptions);
+    }
+    catch (error) {
+      console.log(error)
+      alert("Sorry we had trouble adding your account to our Database")
+    }
   }
 
   userAccount(name) {
     (this.name = name),
-      (this.booksRead = []),
-      (this.booksReading = []),
-      (this.booksToRead = []);
+    (this.booksRead = []),
+    (this.booksReading = []),
+    (this.booksToRead = []);
   }
+
+
 
   //                                             //
 
@@ -173,21 +180,30 @@ class Bookshelf {
   }
 
   async fetchBook(title) {
-    const request = await fetch(
-      `https://openlibrary.org/search.json?title=${title}`,
-    );
-    const data = await request.json();
-    this.bookOnDisplay.title = data.docs[0].title;
-    this.bookOnDisplay.author = data.docs[0].author_name[0];
-    this.bookOnDisplay.oclc = data.docs[0].oclc[0]; // need to have a try and catch as not all books have an oclc
-    this.setBookToPage();
+    try {
+      const request = await fetch(
+        `https://openlibrary.org/search.json?title=${title}`,
+      );
+      const data = await request.json();
+      this.bookOnDisplay.title = data.docs[0].title;
+      this.bookOnDisplay.author = data.docs[0].author_name[0];
+      this.bookOnDisplay.oclc = data.docs[0].oclc[0]; // need to have a try and catch as not all books have an oclc
+      this.setBookToPage();
+    }
+    catch (error) {
+      console.log(error)
+      alert("Your search didnt't process correctly, please check spelling")
+    }
   }
 
   setBookToPage() {
+    alert("Picture of book might take a few seconds")
     document.querySelector("#displayBook").innerHTML =
       `<p>${this.bookOnDisplay.title} by: ${this.bookOnDisplay.author}</p><img src='https://covers.openlibrary.org/b/oclc/${this.bookOnDisplay.oclc}-M.jpg'>`;
     document.querySelector("#displayButtons").classList.remove("d-none");
   }
+
+
 
   //                                                    //
 
@@ -203,25 +219,20 @@ class Bookshelf {
     }
   }
 
-  //                                                      //
 
   addBookToList(list) {
-    console.log(this.currentUser);
-    console.log(this.bookOnDisplay);
-    console.log(list);
     const bookToPush = {
       title: this.bookOnDisplay.title,
       author: this.bookOnDisplay.author,
       oclc: this.bookOnDisplay.oclc,
     };
-    this.currentUser[list].push(bookToPush);
+    this.currentUser.booksRead.push(bookToPush);
     this.updatePageLists(list);
-    this.pushToDataBase(list);
-    // push on to the DB
+    this.updateDataBase();
   }
 
   updatePageLists(list) {
-    console.log(this.currentUser[list].length); // this is to see if the user has any lists to add, if they dont than we wont add html of nothing
+    // this is to see if the user has any lists to add, if they dont than we wont add html of nothing
     if (this.currentUser[list].length > 0) {
       document.getElementById(list).innerHTML = " ";
       for (let i = 0; i < this.currentUser[list].length; i++) {
@@ -232,7 +243,16 @@ class Bookshelf {
     }
   }
 
-  async pushToDataBase(list) {}
+  async updateDataBase() {
+    const requestOptions = {
+      method: "PUT",
+      mode: "cors",  // this is a copy version of the post request, i need to figure out what mode & headers do
+      headers: { "Content-Type": "application/json" }, // ^^^
+      body: JSON.stringify(this.currentUser),
+    };
+    const correctURL = (USER_INFO + "/" + this.currentUser.id)
+    const response = await fetch(correctURL, requestOptions)
+  }
 }
 window.onload = () => {
   new Bookshelf();

@@ -3,7 +3,18 @@
     {
       "id": 1,
       "name": "Ann",
-      "booksRead": [],
+      "booksRead": [
+        {
+          "title": "Ancillary Justice",
+          "author": "Ann Leckie",
+          "oclc": "828142663"
+        },
+        {
+          "title": "Percy Jackson & the Olympians",
+          "author": "Rick Riordan",
+          "oclc": "702092352"
+        }
+      ],
       "booksReading": [],
       "booksToRead": []
     },
@@ -27,13 +38,6 @@
       "booksReading": [],
       "booksToRead": [],
       "id": 4
-    },
-    {
-      "name": "tester",
-      "booksRead": [],
-      "booksReading": [],
-      "booksToRead": [],
-      "id": 5
     }
   ],
   "Auth": [
@@ -56,11 +60,6 @@
       "username": "sol",
       "password": "321",
       "id": 4
-    },
-    {
-      "username": "tester",
-      "password": "123",
-      "id": 5
     }
   ]
 }
