@@ -1,21 +1,150 @@
-#accountInfo {
-  border: solid black 1px;
+.header {
+  /*background: rgb(246,238,227);
+  background: linear-gradient(72deg, rgba(246,238,227,1) 4%, rgba(238,231,215,1) 17%, rgba(229,222,207,1) 41%, rgba(229,221,206,1) 42%, rgba(229,203,186,1) 60%, rgba(217,189,165,1) 75%);
+  */padding: 4px;
+  text-align: center;
+  min-height: 7vh;
+  border-bottom: #AA4A44 groove 4px;
 }
 
-.row {
-  border: solid black 1px;
-}
-/*
 body {
-  background-color: black;
+  color: #AA4A44;
+  background-image: url("../assets/images/b11.jpg");
+ /* image from https://unsplash.com/photos/brown-wooden-book-shelf-with-books-BEEyeib-am8 */
 }
 
-* {
-  color: white;
+p {
+  text-align: center;
 }
 
-button, input {
-  background-color: black;
-  border: white 1px;
+summary {
+  font-size: 30px;
+  border-bottom: #AA4A44;
+  padding: 4px;
 }
-*/
+
+#accountInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+}
+
+.bookList {
+  padding: 10px;
+  border: solid #AA4A44 2px;
+  border-radius: 5px;
+  margin: 10px;
+  display: flex;
+  font-size: 15px;
+  overflow: auto;
+  padding: 4px;
+}
+
+.indvBook {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 5px;
+  min-width: 200px;
+  align-items: center;
+  font-size: large;
+  background-color: rgba(253,230,223,255);
+  border: solid rgba(253,230,223,255) 3px;
+  border-radius: 5px;
+  box-shadow: 3px 3px;
+  padding: 4px;
+}
+
+input {
+  color: #AA4A44;
+  background: rgb(246,238,227);
+  background: linear-gradient(72deg, rgba(246,238,227,1) 4%, rgba(238,231,215,1) 17%, rgba(229,222,207,1) 41%, rgba(229,221,206,1) 42%);
+  border: solid rgba(217,189,165,1) 1px;
+  border-radius: 5px;
+  margin: 5px;
+  box-shadow: 3px 3px;
+  padding: 4px;
+}
+
+button {
+  color: #AA4A44;
+  background: rgb(246,238,227);
+  background: linear-gradient(72deg, rgba(246,238,227,1) 4%, rgba(238,231,215,1) 17%, rgba(229,222,207,1) 41%, rgba(229,221,206,1) 42%);
+  border: solid rgba(217,189,165,1) 1px;
+  border-radius: 5px;
+  margin: 5px;
+  box-shadow: 3px 3px;
+  padding: 4px;
+}
+
+#allAccount {
+  background: rgb(235,168,157);
+  background: linear-gradient(90deg, rgba(235,168,157,1) 5%, rgba(147,179,176,1) 47%, rgba(253,230,223,1) 100%);
+  padding: 4px;
+  margin: 30px;
+  border-radius: 8px;
+  box-shadow: 4px 4px;
+  text-align: center;
+  max-width: 40vw;
+
+}
+
+#bookSearchBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: rgb(253,230,223);
+  background: linear-gradient(90deg, rgba(253,230,223,1) 0%, rgba(235,168,157,1) 53%, rgba(183,212,218,1) 89%);
+  padding: 4px;
+  margin: 30px;
+  border-radius: 8px;
+  box-shadow: 4px 4px;
+  text-align: center;
+  max-width: 40vw;
+  min-height: 20vh;
+}
+
+.indvBookSearched {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#mainContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 93vh;
+}
+
+
+/* All of this will need to be reformatted with buttons not hiding but rewritten if i want it to apply to screen //// grow when i want it to */
+#accountSearch {
+  display: grid;
+  grid-template-areas: 
+  "head head head"
+  "name name name"
+  "pass pass pass"
+  "change change submit";
+}
+
+.gridHead {
+  grid-area: head;
+}
+
+.gridName {
+  grid-area: name;
+}
+
+.gridPass {
+  grid-area: pass;
+}
+
+.gridChange {
+  grid-area: change;
+}
+
+.gridSubmit {
+  grid-area: submit;
+  
+}

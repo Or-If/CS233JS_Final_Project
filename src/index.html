@@ -7,10 +7,10 @@
   </head>
   <body>
     <div class="bookStorage container-fluid">
-      <div class="row">
-        <h1>Header</h1>
+      <div class="row header">
+        <h1>Bookshelf</h1>
       </div>
-      <div class="row">
+      <div id="mainContent" class="row">
         <div id="bookSearchBar" class="col-sm">
           <form id="bookSearch">
             <h4>
@@ -34,49 +34,60 @@
           </div>
         </div>
 
-        <div id="allAccountInfo" class="col-sm">
-          <div id="accountSearchBars" class="">
+        <div id="allAccount" class="col-sm">
+          <div id="accountSearchBars">
+
             <form id="accountSearch">
-              <h4>Submit Your Account Info</h4>
-              <div class="form-group">
-                <label for="username">Username: </label>
-                <input type="text" id="username" name="username" />
-              </div>
-              <div class="form-group">
-                <label for="password">Password: </label>
-                <input type="password" id="password" name="password" />
-                <input type="submit" value="submit" />
-              </div>
+              <h4 class="gridHead">Submit Your Account Info</h4>
+                <div class="gridName">
+                  <label for="username">Username: </label>
+                  <input type="text" id="username" name="username" required/>
+                </div>
+                <div class="gridPass">
+                  <label for="password">Password: </label>
+                  <input type="password" id="password" name="password" required/>                  
+                </div>
+              <input class="gridSubmit" type="submit" value="submit" />
             </form>
 
             <form id="accountCreation" class="d-none">
-              <h4>Create An Account</h4>
-              <label for="usernameCreation">Username: </label>
-              <input type="text" id="usernameCreation" name="username" />
-              <label for="passwordCreation">Password: </label>
-              <input type="password" id="passwordCreation" name="password" />
-              <input type="submit" value="submit" />
+              <h4 class="gridHead">Create An Account</h4>
+                <div class="gridName">
+                  <label for="usernameCreation">Username: </label>
+                  <input type="text" id="usernameCreation" name="username" required/>
+                </div>
+                <div class="gridPass">
+                  <label for="passwordCreation">Password: </label>
+                  <input type="password" id="passwordCreation" name="password" required/>
+                </div>
+              <input class="gridSubmit" type="submit" value="submit" />
             </form>
-            <button class="btn-default btn-sm" id="changeSubmit">
+
+
+            <button class="gridChange"  id="changeSubmit">
               Create an account instead
             </button>
           </div>
 
-          <div id="accountInfo" class="">
+          <div id="accountInfo" class="d-none">
             <h4 id="accountName"></h4>
-            <div id="booksList01">
-              <!-- for some reason collapse just dont work-->
-              <p>Finished Books<span class="badge">5</span></p>
-              <div id="booksRead"></div>
-            </div>
+            <details class="details">
+              <summary>Finished Books</summary>
+               <div id="booksRead" class=" bookList"></div>
+            </details>
             <div id="booksList02">
-              <p>Currently Reading <span class="badge"></span></p>
+            <details>
+              <summary>Currently Reading</summary>
               <div id="booksReading" class="bookList"></div>
             </div>
+            </details>
             <div id="booksList03">
-              <p>Want To Read <span class="badge"></span></p>
-              <div id="booksToRead" class="bookList"></div>
+              <details>
+                <summary>Want To Read</summary>
+                <div id="booksToRead" class="bookList"></div>
+              </details>
             </div>
+
           </div>
         </div>
       </div>

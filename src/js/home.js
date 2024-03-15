@@ -96,8 +96,10 @@ class Bookshelf {
   }
 
   setAccountToPage(userInfo) {
+    document.querySelector("#accountSearchBars").classList.add("d-none");
+    document.querySelector("#accountInfo").classList.remove("d-none");
     document.querySelector("#accountName").innerHTML =
-      `${userInfo.name}'s <b>BookShelf</b>`;
+      `<p>${userInfo.name}'s <b>BookShelf</b></p>`;
     this.currentUser.id = userInfo.id;
     this.currentUser.name = userInfo.name;
     this.currentUser.booksRead = userInfo.booksRead;
@@ -199,7 +201,7 @@ class Bookshelf {
   setBookToPage() {
     alert("Picture of book might take a few seconds")
     document.querySelector("#displayBook").innerHTML =
-      `<p>${this.bookOnDisplay.title} by: ${this.bookOnDisplay.author}</p><img src='https://covers.openlibrary.org/b/oclc/${this.bookOnDisplay.oclc}-M.jpg'>`;
+      `<div class="indvBookSearched"><h3>${this.bookOnDisplay.title}</h3> by: ${this.bookOnDisplay.author}</h><img src='https://covers.openlibrary.org/b/oclc/${this.bookOnDisplay.oclc}-M.jpg'> </div>`;
     document.querySelector("#displayButtons").classList.remove("d-none");
   }
 
@@ -208,14 +210,14 @@ class Bookshelf {
   //                                                    //
 
   changeFormButton() {
-    if (this.creatNewAccountForm.classList.contains("d-none")) {
-      this.creatNewAccountForm.classList.remove("d-none");
-      this.changeButton.innerHTML = "Already have an account";
-      this.accountForm.classList.add("d-none");
+    if (document.querySelector("#accountCreation").classList.contains("d-none")) {
+      document.querySelector("#accountCreation").classList.remove("d-none");
+      document.querySelector("#changeSubmit").innerHTML = "Already have an account";
+      document.querySelector("#accountSearch").classList.add("d-none");
     } else {
-      this.accountForm.classList.remove("d-none");
-      this.changeButton.innerHTML = "Create an account instead";
-      this.creatNewAccountForm.classList.add("d-none");
+      document.querySelector("#accountSearch").classList.remove("d-none");
+      document.querySelector("#changeSubmit").innerHTML = "Create an account instead";
+      document.querySelector("#accountCreation").classList.add("d-none");
     }
   }
 
@@ -226,7 +228,17 @@ class Bookshelf {
       author: this.bookOnDisplay.author,
       oclc: this.bookOnDisplay.oclc,
     };
-    this.currentUser.booksRead.push(bookToPush);
+    console.log(list)
+    console.log(this.currentUser.list)
+
+    console.log(this.currentUser)
+    console.log(this.currentUser.booksReading)
+    console.log(this.currentUser.booksRead)
+    console.log(this.currentUser.booksToRead)
+
+
+
+    this.currentUser[`${list}`].push(bookToPush);
     this.updatePageLists(list);
     this.updateDataBase();
   }
@@ -237,8 +249,8 @@ class Bookshelf {
       document.getElementById(list).innerHTML = " ";
       for (let i = 0; i < this.currentUser[list].length; i++) {
         document.getElementById(list).innerHTML +=
-          `<p>${this.currentUser[list][i].title} <br> by: ${this.currentUser[list][i].author}</p> 
-        <img width="100px" height="150px" src='https://covers.openlibrary.org/b/oclc/${this.currentUser[list][i].oclc}-M.jpg'>`;
+          `<div class="indvBook"><p><i>${this.currentUser[list][i].title}</i> <br> by: ${this.currentUser[list][i].author}</p> 
+        <img width="100px" height="150px" src='https://covers.openlibrary.org/b/oclc/${this.currentUser[list][i].oclc}-M.jpg'></div>`;
       }
     }
   }
@@ -253,6 +265,11 @@ class Bookshelf {
     const correctURL = (USER_INFO + "/" + this.currentUser.id)
     const response = await fetch(correctURL, requestOptions)
   }
+
+  closeOtherDetails() {
+    // If I get to it I would like this to close all other detail tags when one is picked
+  }
+
 }
 window.onload = () => {
   new Bookshelf();

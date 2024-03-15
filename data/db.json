@@ -10,13 +10,40 @@
           "oclc": "828142663"
         },
         {
-          "title": "Percy Jackson & the Olympians",
-          "author": "Rick Riordan",
-          "oclc": "702092352"
+          "title": "1984 (adaptation)",
+          "author": "Michael Dean",
+          "oclc": "154727127"
+        },
+        {
+          "title": "The Day of the Triffids",
+          "author": "John Wyndham",
+          "oclc": "1240022"
+        },
+        {
+          "title": "The Long Way to a Small, Angry Planet",
+          "author": "Becky Chambers",
+          "oclc": "928131469"
+        },
+        {
+          "title": "Ancillary Mercy",
+          "author": "Ann Leckie",
+          "oclc": "910622081"
         }
       ],
-      "booksReading": [],
-      "booksToRead": []
+      "booksReading": [
+        {
+          "title": "Ancillary Justice",
+          "author": "Ann Leckie",
+          "oclc": "828142663"
+        }
+      ],
+      "booksToRead": [
+        {
+          "title": "Ancillary Justice",
+          "author": "Ann Leckie",
+          "oclc": "828142663"
+        }
+      ]
     },
     {
       "id": 2,
