@@ -32,6 +32,11 @@ class Bookshelf {
     document.querySelector("#changeSubmit").onclick = this.changeFormButton.bind(this);
     document.querySelector("#accountCreation").onsubmit = this.addNewUser.bind(this);
     document.querySelector("#accountSearch").onsubmit = this.searchAccount.bind(this);
+
+    //
+    document.querySelector(".details01").onclick = this.closeOtherDetails.bind(this, 1);
+    document.querySelector(".details02").onclick = this.closeOtherDetails.bind(this, 2);
+    document.querySelector(".details03").onclick = this.closeOtherDetails.bind(this, 3);
   }
 
 
@@ -87,7 +92,6 @@ class Bookshelf {
   findExactUser(allUserData, userID) { 
     let userInfo;
     allUserData.forEach((dataIterable) => {
-      console.log(dataIterable.id, userID);
       if (dataIterable.id === userID) {
         userInfo = dataIterable;
       }
@@ -176,7 +180,6 @@ class Bookshelf {
 
   searchBook(event) {
     event.preventDefault();
-    console.log(bookTitle.value);
     const title = bookTitle.value.replace(/\s/, "+");
     const bookData = this.fetchBook(title);
   }
@@ -228,16 +231,6 @@ class Bookshelf {
       author: this.bookOnDisplay.author,
       oclc: this.bookOnDisplay.oclc,
     };
-    console.log(list)
-    console.log(this.currentUser.list)
-
-    console.log(this.currentUser)
-    console.log(this.currentUser.booksReading)
-    console.log(this.currentUser.booksRead)
-    console.log(this.currentUser.booksToRead)
-
-
-
     this.currentUser[`${list}`].push(bookToPush);
     this.updatePageLists(list);
     this.updateDataBase();
@@ -266,8 +259,24 @@ class Bookshelf {
     const response = await fetch(correctURL, requestOptions)
   }
 
-  closeOtherDetails() {
-    // If I get to it I would like this to close all other detail tags when one is picked
+  closeOtherDetails(index) {
+    let booksRead = document.querySelector(".details01")
+    let booksReading = document.querySelector(".details02")
+    let booksToRead = document.querySelector(".details03")
+    switch(index) {
+      case 1:
+        booksReading.open = false;
+        booksToRead.open = false;
+        break;
+      case 2:
+        booksRead.open = false;
+        booksToRead.open = false;
+        break;
+      case 3:
+        booksRead.open = false;
+        booksReading.open = false;
+        break;
+    }   
   }
 
 }
