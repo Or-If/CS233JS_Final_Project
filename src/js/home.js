@@ -202,7 +202,7 @@ class Bookshelf {
   }
 
   setBookToPage() {
-    alert("Picture of book might take a few seconds")
+    console.log("Picture of book might take a few seconds");
     document.querySelector("#displayBook").innerHTML =
       `<div class="indvBookSearched"><h3>${this.bookOnDisplay.title}</h3> by: ${this.bookOnDisplay.author}</h><img src='https://covers.openlibrary.org/b/oclc/${this.bookOnDisplay.oclc}-M.jpg'> </div>`;
     document.querySelector("#displayButtons").classList.remove("d-none");

@@ -114,37 +114,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 93vh;
+  min-height: 88vh;
 }
 
-
-/* All of this will need to be reformatted with buttons not hiding but rewritten if i want it to apply to screen //// grow when i want it to */
-#accountSearch {
-  display: grid;
-  grid-template-areas: 
-  "head head head"
-  "name name name"
-  "pass pass pass"
-  "change change submit";
-}
-
-.gridHead {
-  grid-area: head;
-}
-
-.gridName {
-  grid-area: name;
-}
-
-.gridPass {
-  grid-area: pass;
-}
-
-.gridChange {
-  grid-area: change;
-}
-
-.gridSubmit {
-  grid-area: submit;
-  
+#imageSource {
+  text-align: left;
 }
